@@ -19,7 +19,7 @@ public class SeatController {
     @Autowired
     SeatService seatService;
 
-    @PostMapping("/")
+    @PostMapping("/add-seat")
     public ResponseEntity<Seats> saveSeat(@RequestBody Seats seat) {
         log.info("Inside saveSeat of SeatController");
         seatService.saveSeat(seat);
@@ -27,7 +27,7 @@ public class SeatController {
     }
 
     @Operation(summary = "untuk mendapatkan seats berdasarkan schedule id")
-    @GetMapping("/{scheduleId}")
+    @GetMapping("/by-schedule-id/{scheduleId}")
     public ResponseEntity<List<Seats>> findSeatsByScheduleId(@Schema(example = "1") @PathVariable("scheduleId") Long scheduleId){
         log.info("Inside findSeatsByScheduleId of SeatController");
         return new ResponseEntity<>(seatService.findSeatsByScheduleId(scheduleId), HttpStatus.OK);
@@ -39,5 +39,12 @@ public class SeatController {
         log.info("Inside deleteSeatByScheduleIdAndNomorKursi of SeatController");
         seatService.deleteSeatByScheduleIdAndNomorKursi(scheduleId, nomorKursi);
         return new ResponseEntity<>("Seat deleted", HttpStatus.OK);
+    }
+
+    @GetMapping("/by-schedule-id-and-nomor-kursi")
+    public ResponseEntity<Seats> findSeatByScheduleIdAndNomorKursi(@RequestParam("scheduleId") Long scheduleId,
+                                                                   @RequestParam("nomorKursi") String nomorKursi){
+        log.info("Inside findSeatByScheduleIdAndNomorKursi of SeatController");
+        return new ResponseEntity<>(seatService.findSeatByScheduleIdAndNomorKursi(scheduleId, nomorKursi), HttpStatus.OK);
     }
 }

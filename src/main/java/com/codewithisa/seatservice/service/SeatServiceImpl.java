@@ -32,5 +32,11 @@ public class SeatServiceImpl implements SeatService{
         log.info("Inside deleteSeatByScheduleIdAndNomorKursi of SeatServiceImpl");
         seatRepository.deleteSeatByScheduleIdAndNomorKursi(scheduleId, nomorKursi);
     }
+
+    @Override
+    public Seats findSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi) {
+        log.info("Inside findSeatByScheduleIdAndNomorKursi of SeatServiceImpl");
+        return seatRepository.findSeatByScheduleIdAndNomorKursi(scheduleId, nomorKursi);
+    }
 }
 

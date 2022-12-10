@@ -10,4 +10,5 @@ public interface SeatService {
     void saveSeat(Seats seat);
     List<Seats> findSeatsByScheduleId(Long scheduleId);
     void deleteSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi);
+    Seats findSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi);
 }
