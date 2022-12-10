@@ -23,7 +23,14 @@ public class SeatServiceImpl implements SeatService{
 
     @Override
     public List<Seats> findSeatsByScheduleId(Long scheduleId) {
+        log.info("Inside findSeatsByScheduleId of SeatServiceImpl");
         return seatRepository.findSeatsByScheduleId(scheduleId);
+    }
+
+    @Override
+    public void deleteSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi) {
+        log.info("Inside deleteSeatByScheduleIdAndNomorKursi of SeatServiceImpl");
+        seatRepository.deleteSeatByScheduleIdAndNomorKursi(scheduleId, nomorKursi);
     }
 }
 

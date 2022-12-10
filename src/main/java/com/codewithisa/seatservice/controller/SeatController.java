@@ -32,4 +32,12 @@ public class SeatController {
         log.info("Inside findSeatsByScheduleId of SeatController");
         return new ResponseEntity<>(seatService.findSeatsByScheduleId(scheduleId), HttpStatus.OK);
     }
+
+    @DeleteMapping("delete-seat")
+    public ResponseEntity<String> deleteSeatByScheduleIdAndNomorKursi(@RequestParam("scheduleId") Long scheduleId,
+                                                                      @RequestParam("nomorKursi") String nomorKursi){
+        log.info("Inside deleteSeatByScheduleIdAndNomorKursi of SeatController");
+        seatService.deleteSeatByScheduleIdAndNomorKursi(scheduleId, nomorKursi);
+        return new ResponseEntity<>("Seat deleted", HttpStatus.OK);
+    }
 }
