@@ -27,13 +27,13 @@ public class SeatController {
     }
 
     @Operation(summary = "untuk mendapatkan seats berdasarkan schedule id")
-    @GetMapping("/by-schedule-id/{scheduleId}")
+    @GetMapping("/find-seats-by-schedule-id/{scheduleId}")
     public ResponseEntity<List<Seats>> findSeatsByScheduleId(@Schema(example = "1") @PathVariable("scheduleId") Long scheduleId){
         log.info("Inside findSeatsByScheduleId of SeatController");
         return new ResponseEntity<>(seatService.findSeatsByScheduleId(scheduleId), HttpStatus.OK);
     }
 
-    @DeleteMapping("delete-seat")
+    @DeleteMapping("delete-seat-by-schedule-id-and-nomor-kursi")
     public ResponseEntity<String> deleteSeatByScheduleIdAndNomorKursi(@RequestParam("scheduleId") Long scheduleId,
                                                                       @RequestParam("nomorKursi") String nomorKursi){
         log.info("Inside deleteSeatByScheduleIdAndNomorKursi of SeatController");
@@ -41,7 +41,7 @@ public class SeatController {
         return new ResponseEntity<>("Seat deleted", HttpStatus.OK);
     }
 
-    @GetMapping("/by-schedule-id-and-nomor-kursi")
+    @GetMapping("/find-seat-by-schedule-id-and-nomor-kursi")
     public ResponseEntity<Seats> findSeatByScheduleIdAndNomorKursi(@RequestParam("scheduleId") Long scheduleId,
                                                                    @RequestParam("nomorKursi") String nomorKursi){
         log.info("Inside findSeatByScheduleIdAndNomorKursi of SeatController");
