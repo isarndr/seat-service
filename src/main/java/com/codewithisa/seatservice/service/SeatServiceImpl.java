@@ -38,5 +38,17 @@ public class SeatServiceImpl implements SeatService{
         log.info("Inside findSeatByScheduleIdAndNomorKursi of SeatServiceImpl");
         return seatRepository.findSeatByScheduleIdAndNomorKursi(scheduleId, nomorKursi);
     }
+
+    @Override
+    public Boolean existByScheduleId(Long scheduleId) {
+        log.info("Inside existByScheduleId of SeatServiceImpl");
+        return seatRepository.existsByScheduleId(scheduleId);
+    }
+
+    @Override
+    public Boolean existsByNomorKursi(String nomorKursi) {
+        log.info("Inside existsByNomorKursi of SeatServiceImpl");
+        return seatRepository.existsByNomorKursi(nomorKursi);
+    }
 }
 

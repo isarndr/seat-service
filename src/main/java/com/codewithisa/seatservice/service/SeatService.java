@@ -11,4 +11,7 @@ public interface SeatService {
     List<Seats> findSeatsByScheduleId(Long scheduleId);
     void deleteSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi);
     Seats findSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi);
+    Boolean existByScheduleId(Long scheduleId);
+
+    Boolean existsByNomorKursi(String nomorKursi);
 }

@@ -33,5 +33,9 @@ public interface SeatRepository extends JpaRepository<Seats,Long> {
             value = "select * from seats where schedule_id=:scheduleId and nomor_kursi=:nomorKursi"
     )
     Seats findSeatByScheduleIdAndNomorKursi(@Param("scheduleId") Long scheduleId, @Param("nomorKursi") String nomorKursi);
+
+    Boolean existsByScheduleId(Long scheduleId);
+
+    Boolean existsByNomorKursi(String nomorKursi);
 }
 

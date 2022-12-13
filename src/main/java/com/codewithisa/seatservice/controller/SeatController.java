@@ -30,6 +30,11 @@ public class SeatController {
     @GetMapping("/find-seats-by-schedule-id/{scheduleId}")
     public ResponseEntity<List<Seats>> findSeatsByScheduleId(@Schema(example = "1") @PathVariable("scheduleId") Long scheduleId){
         log.info("Inside findSeatsByScheduleId of SeatController");
+        Boolean existByScheduleId = seatService.existByScheduleId(scheduleId);
+        if(!existByScheduleId){
+            log.error("schedule id is not in the database");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(seatService.findSeatsByScheduleId(scheduleId), HttpStatus.OK);
     }
 
@@ -37,6 +42,16 @@ public class SeatController {
     public ResponseEntity<String> deleteSeatByScheduleIdAndNomorKursi(@RequestParam("scheduleId") Long scheduleId,
                                                                       @RequestParam("nomorKursi") String nomorKursi){
         log.info("Inside deleteSeatByScheduleIdAndNomorKursi of SeatController");
+        Boolean existByScheduleId = seatService.existByScheduleId(scheduleId);
+        if(!existByScheduleId){
+            log.error("schedule id is not in the database");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Boolean existsByNomorKursi = seatService.existsByNomorKursi(nomorKursi);
+        if(!existsByNomorKursi){
+            log.error("nomor kursi is not in the database");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         seatService.deleteSeatByScheduleIdAndNomorKursi(scheduleId, nomorKursi);
         return new ResponseEntity<>("Seat deleted", HttpStatus.OK);
     }
@@ -45,6 +60,16 @@ public class SeatController {
     public ResponseEntity<Seats> findSeatByScheduleIdAndNomorKursi(@RequestParam("scheduleId") Long scheduleId,
                                                                    @RequestParam("nomorKursi") String nomorKursi){
         log.info("Inside findSeatByScheduleIdAndNomorKursi of SeatController");
+        Boolean existByScheduleId = seatService.existByScheduleId(scheduleId);
+        if(!existByScheduleId){
+            log.error("schedule id is not in the database");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Boolean existsByNomorKursi = seatService.existsByNomorKursi(nomorKursi);
+        if(!existsByNomorKursi){
+            log.error("nomor kursi is not in the database");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(seatService.findSeatByScheduleIdAndNomorKursi(scheduleId, nomorKursi), HttpStatus.OK);
     }
 }
