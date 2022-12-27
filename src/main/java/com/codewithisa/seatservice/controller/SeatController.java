@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -29,11 +28,7 @@ public class SeatController {
     @Operation(summary = "untuk mendapatkan seats berdasarkan schedule id")
     @GetMapping("/seats-by-schedule-id/{scheduleId}")
     public ResponseEntity<?> findSeatsByScheduleId(@Schema(example = "1") @PathVariable("scheduleId") Long scheduleId){
-        try {
-            return new ResponseEntity<>(seatService.findSeatsByScheduleId(scheduleId), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>(seatService.findSeatsByScheduleId(scheduleId), HttpStatus.OK);
     }
 
     @DeleteMapping("/by-schedule-id-and-nomor-kursi")

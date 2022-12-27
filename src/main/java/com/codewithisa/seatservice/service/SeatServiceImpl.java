@@ -4,15 +4,15 @@ import com.codewithisa.seatservice.entity.Seat;
 import com.codewithisa.seatservice.repository.SeatRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Service
 public class SeatServiceImpl implements SeatService{
+
     @Autowired
     SeatRepository seatRepository;
 
@@ -23,13 +23,13 @@ public class SeatServiceImpl implements SeatService{
     }
 
     @Override
-    public List<Seat> findSeatsByScheduleId(Long scheduleId) throws Exception{
+    public List<Seat> findSeatsByScheduleId(Long scheduleId){
 
         Boolean existByScheduleId = existByScheduleId(scheduleId);
 
         if(!existByScheduleId){
-            log.error("schedule id is not in the database");
-            throw new Exception("schedule id is not in the database");
+            log.info("seats are fully booked");
+            return new ArrayList<>();
         }
 
         return seatRepository.findSeatsByScheduleId(scheduleId);
