@@ -1,16 +1,16 @@
 package com.codewithisa.seatservice.service;
 
-import com.codewithisa.seatservice.entity.Seats;
+import com.codewithisa.seatservice.entity.Seat;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface SeatService {
-    void saveSeat(Seats seat);
-    List<Seats> findSeatsByScheduleId(Long scheduleId);
-    void deleteSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi);
-    Seats findSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi);
+    void saveSeat(Seat seat);
+    List<Seat> findSeatsByScheduleId(Long scheduleId) throws Exception;
+    void deleteSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi) throws Exception;
+    Seat findSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi) throws Exception;
     Boolean existByScheduleId(Long scheduleId);
 
     Boolean existsByNomorKursi(String nomorKursi);

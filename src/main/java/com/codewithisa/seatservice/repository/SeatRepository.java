@@ -1,6 +1,6 @@
 package com.codewithisa.seatservice.repository;
 
-import com.codewithisa.seatservice.entity.Seats;
+import com.codewithisa.seatservice.entity.Seat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,13 +12,13 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface SeatRepository extends JpaRepository<Seats,Long> {
+public interface SeatRepository extends JpaRepository<Seat,Long> {
 
     @Query(
             nativeQuery = true,
             value = "select * from seats where schedule_id = :scheduleId"
     )
-    List<Seats> findSeatsByScheduleId(@RequestParam("scheduleId") Long scheduleId);
+    List<Seat> findSeatsByScheduleId(@RequestParam("scheduleId") Long scheduleId);
 
     @Modifying
     @Transactional
@@ -32,7 +32,7 @@ public interface SeatRepository extends JpaRepository<Seats,Long> {
             nativeQuery = true,
             value = "select * from seats where schedule_id=:scheduleId and nomor_kursi=:nomorKursi"
     )
-    Seats findSeatByScheduleIdAndNomorKursi(@Param("scheduleId") Long scheduleId, @Param("nomorKursi") String nomorKursi);
+    Seat findSeatByScheduleIdAndNomorKursi(@Param("scheduleId") Long scheduleId, @Param("nomorKursi") String nomorKursi);
 
     Boolean existsByScheduleId(Long scheduleId);
 

@@ -1,9 +1,11 @@
 package com.codewithisa.seatservice.service;
 
-import com.codewithisa.seatservice.entity.Seats;
+import com.codewithisa.seatservice.entity.Seat;
 import com.codewithisa.seatservice.repository.SeatRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,39 +17,71 @@ public class SeatServiceImpl implements SeatService{
     SeatRepository seatRepository;
 
     @Override
-    public void saveSeat(Seats seat) {
-        log.info("Inside saveSeat of SeatServiceImpl");
-        log.info("seat successfully added");
+    public void saveSeat(Seat seat) {
         seatRepository.save(seat);
+        log.info("seat successfully added");
     }
 
     @Override
-    public List<Seats> findSeatsByScheduleId(Long scheduleId) {
-        log.info("Inside findSeatsByScheduleId of SeatServiceImpl");
+    public List<Seat> findSeatsByScheduleId(Long scheduleId) throws Exception{
+
+        Boolean existByScheduleId = existByScheduleId(scheduleId);
+
+        if(!existByScheduleId){
+            log.error("schedule id is not in the database");
+            throw new Exception("schedule id is not in the database");
+        }
+
         return seatRepository.findSeatsByScheduleId(scheduleId);
     }
 
     @Override
-    public void deleteSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi) {
-        log.info("Inside deleteSeatByScheduleIdAndNomorKursi of SeatServiceImpl");
+    public void deleteSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi) throws Exception{
+
+        Boolean existByScheduleId = existByScheduleId(scheduleId);
+
+        if(!existByScheduleId){
+            log.error("schedule id is not in the database");
+            throw new Exception("schedule id is not in the database");
+        }
+
+        Boolean existsByNomorKursi = existsByNomorKursi(nomorKursi);
+
+        if(!existsByNomorKursi){
+            log.error("nomor kursi is not in the database");
+            throw new Exception("nomor kursi is not in the database");
+        }
+
         seatRepository.deleteSeatByScheduleIdAndNomorKursi(scheduleId, nomorKursi);
     }
 
     @Override
-    public Seats findSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi) {
-        log.info("Inside findSeatByScheduleIdAndNomorKursi of SeatServiceImpl");
+    public Seat findSeatByScheduleIdAndNomorKursi(Long scheduleId, String nomorKursi) throws Exception{
+
+        Boolean existByScheduleId = existByScheduleId(scheduleId);
+
+        if(!existByScheduleId){
+            log.error("schedule id is not in the database");
+            throw new Exception("schedule id is not in the database");
+        }
+
+        Boolean existsByNomorKursi = existsByNomorKursi(nomorKursi);
+
+        if(!existsByNomorKursi){
+            log.error("nomor kursi is not in the database");
+            throw new Exception("nomor kursi is not in the database");
+        }
+
         return seatRepository.findSeatByScheduleIdAndNomorKursi(scheduleId, nomorKursi);
     }
 
     @Override
     public Boolean existByScheduleId(Long scheduleId) {
-        log.info("Inside existByScheduleId of SeatServiceImpl");
         return seatRepository.existsByScheduleId(scheduleId);
     }
 
     @Override
     public Boolean existsByNomorKursi(String nomorKursi) {
-        log.info("Inside existsByNomorKursi of SeatServiceImpl");
         return seatRepository.existsByNomorKursi(nomorKursi);
     }
 }
